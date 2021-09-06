@@ -293,6 +293,24 @@ components:
           type: string
         classroom:
           type: string
+    School:
+      type: object
+      required:
+        - name
+        - city
+        - street
+        - zipcode
+      properties:
+        name:
+          type: string
+        city:
+          type: string
+        street:
+          type: string
+        zipcode:
+          type: number
+        classrooms:
+          type: array
     Error:
       type: object
       required:
