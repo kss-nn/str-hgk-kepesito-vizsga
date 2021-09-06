@@ -309,8 +309,10 @@ components:
           type: string
         zipcode:
           type: number
-        classrooms:
+         classrooms: 
           type: array
+          items:
+            $ref: '#/components/schemas/Classroom'
     Error:
       type: object
       required:
