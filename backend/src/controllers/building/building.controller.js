@@ -9,10 +9,30 @@
  * A szerver a megfelelő válaszokat küldje el a kliens felé
  */
 
-const httpError = require('http-errors');
+const createError = require('http-errors');
+const Model = require('../../models/building.model');
+const service = require('./building.service');
 
+exports.updateBuilding = (req, res, next) => {
+    const validationErrors = new Model(req.body).validateSync();
 
-exports.updateBuilding = (req, res, next) => {}
+    if (validationErrors) {
+        return next(new createError.BadRequest(validationErrors));
+    }
+ 
+    return service.update(req.params.id, req.body)
+        .then(entity => { res.json(entity.id) })
+        .catch(err => {
+            console.error(err);
+            return next(new createError.BadRequest('Building could not updated'));
+        });
+};
 
-
-exports.getAllBuildingWithClassrooms = () => {};
+exports.getAllBuildingWithClassrooms = () => {
+    return service.getAll()
+        .then(list => { res.json(list) })
+        .catch(err => {
+            console.error(err);
+            return new httpError.InternalServerError('List could not send')
+        })
+};
