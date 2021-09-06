@@ -1,1 +1,25 @@
-<p>student-form works!</p>
+<div class="container py-4">
+  <div class="row">
+    <div class="col-6 offset-3">
+      <form *ngIf="student$ | async as student" #studentForm="ngForm" (ngSubmit)="saveStudent(studentForm)">
+        <input type="hidden" name="_id" [(ngModel)]="student._id">
+        <div class="form-group">
+          <label for="">FirstName</label>
+          <input id="firstName" class="form-control" type="text" name="firstName" [(ngModel)]="student.firstName" required>
+        </div>
+        <div class="form-group">
+          <label for="">LastName</label>
+          <input id="lastName" class="form-control" type="text" name="lastName" [(ngModel)]="student.lastName" required>
+        </div>
+        <div class="form-group">
+          <label for="">Email</label>
+          <input id="email" class="form-control" type="text" name="email" [(ngModel)]="student.email" required>
+        </div>
+
+        <button id="save-button" type="submit" [disabled]="studentForm.invalid" class="btn btn-primary w-100 mt-3 mb-3">
+          Save changes
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
